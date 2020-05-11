@@ -8,15 +8,15 @@ var getElementsByClassName = function(className, node) {
   // setup an array, for results
   var results = [];
   node = node || document.body;
-  var classNameArr = node.classList.split(' ');
-// check document.body for className
-// if find className store element in results array
+  var classNameArr = node.classList;
   for (let i = 0; i < classNameArr.length; i++) {
     if (classNameArr[i] === className) {
       results.push(node);
     }
   }
-  // node.classList
-// for each child of current element... push getElements(className, child) into results array
-// return results array
+  var children = node.children;
+  for (let i = 0; i < children.length; i++) {
+    results = results.concat(getElementsByClassName(className, children[i]));
+  }
+  return results;
 };
