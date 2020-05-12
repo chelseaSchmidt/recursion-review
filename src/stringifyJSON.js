@@ -19,7 +19,13 @@ var stringifyJSON = function(obj) {
     return '' + obj;
   }
   if (typeof obj === 'object') {
-    // for ()
+    for (var key in obj) {
+      if (typeof obj[key] === 'function' || obj[key] === undefined) {
+        return '{}';
+      }
+      result.push(stringifyJSON(key) + ':' + stringifyJSON(obj[key]));
+    }
+    return '{' + result + '}';
   }
   if (typeof obj === 'string') {
     return '"' + obj + '"';
